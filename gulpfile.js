@@ -1,23 +1,33 @@
 // ##################################################################################################################################
 /* Author: Iacob Silviu - Iulian
-/* Project: WorkflowWithGulp
-/* Date: 3 / 21 / 2015
+/* Project: WorkflowWithGulpEnhanced
+/* Date: 3 / 22 / 2015
 // ################################################################################################################################*/
 // Nodejs Requires 
 // ##################################################################################################################################
 
-var gulp 		= require('gulp'),
-	gutil 		= require('gulp-util'),
-	coffee		= require('gulp-coffee'),
-	compass		= require('gulp-compass'),
-	browserify	= require('gulp-browserify'),
-	concat		= require('gulp-concat'),
-	minifycss	= require('gulp-minify-css'),
-	minifyhtml  = require('gulp-minify-html'),
-	jsonminify  = require('gulp-jsonminify'),
-	guglify		= require('gulp-uglify'),
-	gulpif 		= require('gulp-if'),
-	connect		= require('gulp-connect');
+var gulp 			= require('gulp'),                  //* 
+	gutil 			= require('gulp-util'),             //******** Utilities  
+	browserify		= require('gulp-browserify'),       //*
+	gulpif 			= require('gulp-if'),               //*
+	concat			= require('gulp-concat'),           //*    
+	connect			= require('gulp-connect'),          //*     
+
+	plumber			= require('gulp-plumber'),          //*
+	jshint			= require('gulp-jshint'),           //******** Linting  
+	notify			= require('gulp-notify'),           //*
+	stylish			= require('jshint-stylish'),        //*       
+          
+	autoprefixer	= require('gulp-autoprefixer'),     //*         
+	coffee			= require('gulp-coffee'),           //******** Preprocessing
+	compass			= require('gulp-compass'),          //* 
+
+	minifycss		= require('gulp-minify-css'),       //*    
+	minifyhtml  	= require('gulp-minify-html'),      //******** Uglifying    
+	jsonminify  	= require('gulp-jsonminify'),       //*    
+	guglify			= require('gulp-uglify');           //*
+	
+
 
 var env, coffeeSources, jsSources, sassSources, staticSources, jsonSources, sassStyle, outputDir;
 var env = process.env.NODE_ENV || 'development';
