@@ -60,7 +60,10 @@ if(env === 'development') {
 
 gulp.task('coffee', function() {
 	gulp.src(coffeeSources)
-		.pipe(coffee({ bare: true }).on('error', gutil.log))	//compiles to js w/o putting it into a secured wrapper.
+		.pipe(coffee({ bare: true }).on('error', function(error) {
+			gutil.log(error);
+			gutil.beep();
+		}))	//compiles to js w/o putting it into a secured wrapper.
 		.pipe(gulp.dest('components/scripts'));
 });
 
@@ -74,6 +77,7 @@ gulp.task('js', function() {
 		.pipe(browserify())
 		.pipe(gulpif(prod, guglify()))
 		.pipe(gulp.dest(outputDir + 'js'))
+		.pipe(notify({ message: 'CoffeeScript Processed! JS Processed!' }))
 		.pipe(connect.reload());
 });
 
