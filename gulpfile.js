@@ -92,6 +92,14 @@ gulp.task('compass', function() {
 			gutil.log(error);
 			gutil.beep();
 		}))
+		.pipe(autoprefixer(
+            'last 2 version',
+            '> 1%',
+            'ie 8',
+            'ie 9',
+            'ios 6',
+            'android 4'	
+		))
 		.pipe(gulpif(prod, minifycss()))
 		.pipe(gulp.dest(outputDir + 'css'))
 		.pipe(notify({message: 'SCSS Processed!'}))
