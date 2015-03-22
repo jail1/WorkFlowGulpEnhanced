@@ -78,6 +78,16 @@ gulp.task('js', function() {
 });
 
 // ##################################################################################################################################
+// JavaScript Lint Task
+// ##################################################################################################################################
+
+gulp.task('js-lint', function() {
+	gulp.src(jsSources)
+		.pipe(jshint())
+		.pipe(jshint.reporter(stylish))
+});
+
+// ##################################################################################################################################
 // Compass Task
 // ##################################################################################################################################
 
@@ -144,7 +154,7 @@ gulp.task('images', function() {
 
 gulp.task('watch', function() {
 	gulp.watch(coffeeSources, ['coffee']);
-	gulp.watch(jsSources, ['js']);
+	gulp.watch(jsSources, ['js', 'js-lint']);
 	gulp.watch('components/sass/*.scss', ['compass']);
 	gulp.watch('builds/development/*.html', ['static']);
 	gulp.watch('builds/development/js/*.json', ['json']);
@@ -166,4 +176,4 @@ gulp.task('connect', function() {
 // Default Task
 // ##################################################################################################################################
 
-gulp.task('default', ['static', 'json', 'coffee', 'js', 'compass', 'images', 'connect', 'watch']); // Process all of this. Yell 'gulp' in console.
+gulp.task('default', ['static', 'js-lint', 'json', 'coffee', 'js', 'compass', 'images', 'connect', 'watch']); // Process all of this. Yell 'gulp' in console.
