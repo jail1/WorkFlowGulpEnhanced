@@ -83,14 +83,19 @@ gulp.task('js', function() {
 
 gulp.task('compass', function() {
 	gulp.src(sassSources)
+		.pipe(plumber())
 		.pipe(compass({
 			sass: 'components/sass',
 			image: outputDir + 'images',
 			style: sassStyle
-		}).on('error', gutil.log))
+		}).on('error', function(error) {
+			gutil.log(error);
+			gutil.beep();
+		}))
 		.pipe(gulpif(prod, minifycss()))
 		.pipe(gulp.dest(outputDir + 'css'))
-		.pipe(connect.reload());
+		.pipe(notify({message: 'SCSS Processed!'}))
+		.pipe(connect.reload())
 });
 
 // ##################################################################################################################################
